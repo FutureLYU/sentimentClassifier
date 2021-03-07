@@ -1,9 +1,10 @@
 import os
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from ..models.review import Review
 from ..models import db
 from datetime import datetime
 from ..services.classifier import classify
+
 home = Blueprint("home", __name__)
 
 @home.route('/')
@@ -30,9 +31,12 @@ def addreview():
     r.save()
     return "success"
 
-@home.route('/predict', methods = ["GET"])
+@home.route('/api/predict', methods = ["GET"])
 def predict():
-    data_dict = request.args
-    string = data_dict['data']
-    result, proba = classify(string)
-    return f"result is {result} and the probability is {proba}"
+    try:
+        data_dict = request.args
+        string = data_dict['data']
+        result, proba = classify(string)
+        return jsonify({"success" : True, "result" : {"prediction" : result, "probability" : proba}, "msg" : "predict successfully"})
+    except:
+        return jsonify({"success" : False, "msg" : "fail to predict, check your input"})
