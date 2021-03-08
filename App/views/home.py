@@ -3,7 +3,8 @@ from flask import Blueprint, request, jsonify
 from ..models.review import Review
 from ..models import db
 from datetime import datetime
-from ..services.classifier import classify
+from ..services.classifier import classify, update
+
 
 home = Blueprint("home", __name__)
 
@@ -40,3 +41,25 @@ def predict():
         return jsonify({"success" : True, "result" : {"prediction" : result, "probability" : proba}, "msg" : "predict successfully"})
     except:
         return jsonify({"success" : False, "msg" : "fail to predict, check your input"})
+
+@home.route('/api/review', methods = ["POST"])
+def api_review():
+    try:
+        data_dict = request.get_json()
+        review = data_dict['review']
+        sentiment = data_dict['sentiment']
+        r = Review(review = review, sentiment = sentiment, date = datetime.now())
+        r.save()
+        return jsonify({"success" : True, "msg" : "save successfully"})
+    except:
+        return jsonify({"success" : False, "msg" : "fail to save"})
+
+@home.route('/api/update', methods = ["GET", "POST"])
+def api_update():
+    try:
+        review_list = Review.query.all()
+        data = [[x.review, x.sentiment] for x in review_list]
+        update(data)
+        return jsonify({"success" : True, "msg" : "model update successfully"})
+    except:
+        return jsonify({"success" : False, "msg" : "fail to update model"})

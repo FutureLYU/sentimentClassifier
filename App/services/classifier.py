@@ -18,3 +18,11 @@ def classify(document):
 def train(document, y):
     X = vect.transform([document])
     clf.partial_fit(X, [y])
+
+def update(results):
+    data = np.array(results)
+    X = data[:, 0]
+    y = data[:, 1].astype(int)
+    classes = np.array([0, 1])
+    X_train = vect.transform(X)
+    clf.partial_fit(X_train, y, classes=classes)
