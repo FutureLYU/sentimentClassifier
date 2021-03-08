@@ -1,5 +1,5 @@
 import os
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template
 from ..models.review import Review
 from ..models import db
 from datetime import datetime
@@ -8,9 +8,11 @@ from ..services.classifier import classify, update
 
 home = Blueprint("home", __name__)
 
-@home.route('/')
-def index():
-    return "movie review classifier home page"
+
+@home.route('/', defaults={'path': ''})
+@home.route('/<path:path>')
+def catch_all(path):
+    return render_template("index.html")
 
 @home.route('/review/')
 def review():

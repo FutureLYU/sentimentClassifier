@@ -17,9 +17,12 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "prebuild": "rm -rf ../App/templates/index.html && rm -rf ../App/static/build",
+    "postbuild": "cp ./build/index.html ../App/templates/ &&  cp -r ./build ../App/static/",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "homepage": "/App/static/build",
   "eslintConfig": {
     "extends": [
       "react-app",
