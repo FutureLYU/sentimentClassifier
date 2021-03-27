@@ -20,7 +20,7 @@ function NavBar() {
       style={{ position: "fixed", zIndex: 5, width: "100%" }}
     >
       <div className="menu__logo">
-        <a href="/">MRSC</a>
+        <a href="/">Homepage</a>
       </div>
       <div className="menu__container">
         <div className="menu_left">
