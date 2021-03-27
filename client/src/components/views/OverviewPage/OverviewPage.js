@@ -86,9 +86,9 @@ function OverviewPage() {
                 HashingVectorizer is data-independent and makes use of the hashing trick via the 32-bit MurmurHash3 function by Austin Appleby.
                 </Paragraph>
                 
-                <div><Text code>>>> from sklearn.feature_extraction.text import HashingVectorizer</Text></div>
-                <div><Text code>>>> from sklearn.linear_model import SGDClassifier</Text></div>
-                <div><Text code>>>> vect = HashingVectorizer(decode_error='ignore',</Text></div>
+                <div><Text code>... from sklearn.feature_extraction.text import HashingVectorizer</Text></div>
+                <div><Text code>... from sklearn.linear_model import SGDClassifier</Text></div>
+                <div><Text code>... vect = HashingVectorizer(decode_error='ignore',</Text></div>
                 <div><Text code>...                          n_features=2**21,</Text></div>
                 <div><Text code>...                          preprocessor=None,</Text></div>
                 <div><Text code>...                          tokenizer=tokenizer)</Text></div>
